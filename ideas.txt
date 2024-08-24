@@ -1,0 +1,13 @@
+make frontend
+    using react.js
+    smooth
+    uva-esque
+make backend
+    example classes
+    map classes for semester
+    show walking path/travel time
+    highlight stress points
+    offer options
+
+https://s23.cs3240.org/sis-api.html
+
