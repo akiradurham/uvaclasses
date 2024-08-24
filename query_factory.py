@@ -1,7 +1,7 @@
 """
 Query factory for making api calls
 """
-from typing import List
+from typing import List, Any
 import requests as rqs
 
 class QueryFactory:
@@ -19,7 +19,7 @@ class QueryFactory:
         self.clist = clist
         self.url = url
 
-    def call_api(self):
+    def call_api(self) -> List[Any]:
         """
         Actual call function using the class list and prepped url
         """
@@ -27,7 +27,7 @@ class QueryFactory:
         for course in self.clist:
             try:
                 prepped_url = self.url + '&subject=' + course[0] + '&catalog_nbr=' + course[1]
-                output.append(rqs.get(prepped_url, timeout=5))
+                output.append(rqs.get(prepped_url, timeout=5).json())
             except (rqs.exceptions.ConnectionError, rqs.exceptions.Timeout,
                     rqs.exceptions.HTTPError, rqs.exceptions.TooManyRedirects) as e:
                 print(f"Error: {e}")
@@ -40,7 +40,7 @@ class QueryFactory:
 # url = 'https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_ClassSearch?institution=UVA01&term=1238&page=1'
 
 # for c in clist:
-#     r = requests.get(url + '&subject=' + c[0] + '&catalog_nbr=' + c[1])
+#     r = rqs.get(url + '&subject=' + c[0] + '&catalog_nbr=' + c[1])
 #     for c in r.json():
 #         print(c['subject'], c['catalog_nbr'] + '-' + c['class_section'], c['component'], c['descr'], \
 #                 c['class_nbr'], c['class_capacity'], c['enrollment_available'])
